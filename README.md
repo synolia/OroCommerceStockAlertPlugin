@@ -4,11 +4,13 @@
 [![Total Downloads](TODO)](TODO)
 
 # Oro Stock Alert Bundle
-TODO
+This plugin allows the customer to subscribe to a product out of stock, to be notified when it is back in stock
 
 ## Features
 
-* TODO
+* Show the stock in the product view and subscribe when not in stock - [Documentation](docs/SHOW.md)
+* Receive an email when the product is back in stock - [Documentation](docs/EMAIL.md)
+* View all products a customer has subscribed to (FO and BO) - [Documentation](docs/LIST.md)
 
 ## Requirements
 
