@@ -1,0 +1,6 @@
+synolia_stock_alert:
+    resource: "@SynoliaStockAlertBundle/Controller/Frontend/StockAlertController.php"
+    type: annotation
+    prefix: /stock-alert
+    options:
+        frontend: true

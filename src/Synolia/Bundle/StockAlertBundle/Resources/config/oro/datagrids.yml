@@ -1,0 +1,110 @@
+datagrids:
+    synolia-stock-alert-frontend-grid:
+        options:
+            frontend: true
+            mass_actions:
+                delete:
+                    enabled: false
+        source:
+            type: orm
+            query:
+                select:
+                    - product.id as id
+                    - product.sku as sku
+                    - product.denormalizedDefaultName as name
+                    - stock_alert.createdAt
+                    - stock_alert.expirationDate
+                from:
+                    - { table: 'Synolia\Bundle\StockAlertBundle\Entity\StockAlert', alias: stock_alert }
+                join:
+                    left:
+                        - { join: stock_alert.product, alias: product }
+                where:
+                    and:
+                        - stock_alert.organization = :organization_id
+                        - stock_alert.customerUser = :customer_user_id
+            bind_parameters:
+                - organization_id
+                - customer_user_id
+        columns:
+            sku:
+                label: SKU
+            name:
+                label: Product
+            createdAt:
+                label: Created at
+                frontend_type: datetime
+            expirationDate:
+                label: Expiration date
+                frontend_type: datetime
+        properties:
+            id: ~
+            delete_link:
+                type: url
+                route: synolia_stock_alert_delete
+                params: [ id ]
+            view_link:
+                type:  url
+                route: oro_product_frontend_product_view
+                params: [ id ]
+        actions:
+            delete:
+                type: delete
+                label: oro.grid.action.delete
+                icon: trash
+                link: delete_link
+            view:
+                type:          navigate
+                label:         oro.grid.action.view
+                link:          view_link
+                icon:          eye
+                acl_resource:  oro_product_view
+                rowAction:     true
+
+    synolia-stock-alert-grid:
+        source:
+            type: orm
+            query:
+                select:
+                    - product.id as id
+                    - product.sku as sku
+                    - product.denormalizedDefaultName as name
+                    - stock_alert.createdAt
+                    - stock_alert.expirationDate
+                from:
+                    - { table: 'Synolia\Bundle\StockAlertBundle\Entity\StockAlert', alias: stock_alert }
+                join:
+                    left:
+                        - { join: stock_alert.product, alias: product }
+                where:
+                    and:
+                        - stock_alert.organization = :organization_id
+                        - stock_alert.customerUser = :customer_user_id
+            bind_parameters:
+                - organization_id
+                - customer_user_id
+        columns:
+            sku:
+                label: SKU
+            name:
+                label: Product
+            createdAt:
+                label: Created at
+                frontend_type: datetime
+            expirationDate:
+                label: Expiration date
+                frontend_type: datetime
+        properties:
+            id: ~
+            view_link:
+                type:  url
+                route: oro_product_view
+                params: [ id ]
+        actions:
+            view:
+                type:          navigate
+                label:         oro.grid.action.view
+                link:          view_link
+                icon:          eye
+                acl_resource:  oro_product_view
+                rowAction:     true

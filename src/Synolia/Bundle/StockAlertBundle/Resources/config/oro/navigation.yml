@@ -1,0 +1,16 @@
+navigation:
+    menu_config:
+        items:
+            synolia_stock_alert_list:
+                label: Stock Alerts
+                route: 'synolia_stock_alert_frontend_index'
+        tree:
+            frontend_menu:
+                children:
+                    oro_customer_menu_customer_user_index:
+                        children:
+                            synolia_stock_alert_list: ~
+            oro_customer_menu:
+                scope_type: menu_frontend_visibility
+                children:
+                    synolia_stock_alert_list: ~

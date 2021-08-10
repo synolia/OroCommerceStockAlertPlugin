@@ -1,0 +1,35 @@
+{% block __oro_product_list_item__stock_alert_widget %}
+    {% set hasStock = product.has_stock_alert ?? synolia_product_has_stock_alert(product) %}
+    <div data-page-component-view="synoliastockalert/js/app/views/stock-alert"
+         data-page-component-options="{{  {'product': product, 'hasStock': hasStock }|json_encode }}"
+    >
+        {% set quantity = synolia_product_quantity(product) %}
+        <div class="row mb-3">
+            <div class="col">
+                <p class="{{ (quantity > 0) ? 'in_stock' : 'out_of_stock' }}">
+                    <span class="fa-circle"></span>
+                    {{ quantity | number_format(0,',','.')}} in stock
+                </p>
+            </div>
+            {% if (quantity <= 0) %}
+            <div class="col">
+                <a class="create-stock-alert pull-right"
+                   href=""
+                   title="Notify me when this product is in stock"
+                   style="display: none"
+                >
+                    <span class="fa-envelope"></span>
+                </a>
+                <a class="delete-stock-alert pull-right"
+                   href=""
+                   title="I no longer wish to be warned when this product is in stock"
+                   style="display: none"
+                >
+                    <span class="fa-trash"></span>
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

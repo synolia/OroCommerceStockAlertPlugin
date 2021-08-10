@@ -1,0 +1,28 @@
+services:
+    Synolia\Bundle\StockAlertBundle\EventListener\CustomerViewListener:
+        public: true
+        arguments:
+            - '@translator'
+            - '@oro_entity.doctrine_helper'
+            - '@request_stack'
+        tags:
+            - { name: kernel.event_listener, event: oro_ui.scroll_data.before.customer-view, method: onCustomerView }
+            - { name: kernel.event_listener, event: oro_ui.scroll_data.before.customer-user-view, method: onCustomerUserView }
+
+    Synolia\Bundle\StockAlertBundle\EventListener\InventoryLevelNotificationEventListener:
+        public: true
+        arguments:
+            - '@Synolia\Bundle\StockAlertBundle\Entity\Repository\StockAlertRepository'
+            - '@Synolia\Bundle\StockAlertBundle\Handler\StockAlertHandler'
+            - '@oro_message_queue.client.message_producer'
+        tags:
+            - { name: doctrine.orm.entity_listener, entity: 'Oro\Bundle\InventoryBundle\Entity\InventoryLevel', event: preUpdate  }
+            - { name: doctrine.orm.entity_listener, entity: 'Oro\Bundle\InventoryBundle\Entity\InventoryLevel', event: postUpdate }
+
+    Synolia\Bundle\StockAlertBundle\EventListener\StockAlertFrontEnDatagridListener:
+        public: true
+        arguments:
+            - '@doctrine.orm.entity_manager'
+        tags:
+            - { name: kernel.event_listener, event: oro_datagrid.datagrid.build.before.frontend-product-search-grid, method: onBuildBefore }
+            - { name: kernel.event_listener, event: oro_datagrid.search_datasource.result.after.frontend-product-search-grid, method: onResultAfter }

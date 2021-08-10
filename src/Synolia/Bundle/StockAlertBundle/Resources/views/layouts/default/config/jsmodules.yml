@@ -1,0 +1,3 @@
+dynamic-imports:
+    synoliastockalert:
+        - synoliastockalert/js/app/views/stock-alert

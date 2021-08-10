@@ -1,0 +1,18 @@
+layout:
+    imports:
+        - id: oro_customer_page
+        -
+            id: synolia_stock_alert_grid
+            root: page_content
+            namespace: stock_alerts
+
+    actions:
+        - '@setOption':
+              id: synolia_stock_alert_grid
+              optionName: grid_name
+              optionValue: synolia_stock_alert_grid
+
+        - '@setOption':
+              id: page_title
+              optionName: defaultValue
+              optionValue: 'Stock Alerts'

@@ -1,0 +1,24 @@
+layout:
+    imports:
+        -
+            id: datagrid
+            root: __root
+
+    actions:
+        - '@setBlockTheme':
+              themes: 'SynoliaStockAlertBundle:layouts:default/imports/synolia_stock_alert_grid/layout.html.twig'
+
+        - '@setOption':
+              id: __datagrid
+              optionName: grid_name
+              optionValue: synolia-stock-alert-frontend-grid
+        - '@appendOption':
+              id: __datagrid
+              optionName: grid_parameters
+              optionValue:
+                  organization_id: '=context["organization_id"]'
+        - '@appendOption':
+              id: __datagrid
+              optionName: grid_parameters
+              optionValue:
+                  customer_user_id: '=context["customer_user_id"]'

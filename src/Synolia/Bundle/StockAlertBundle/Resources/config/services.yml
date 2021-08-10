@@ -1,0 +1,40 @@
+services:
+    Synolia\Bundle\StockAlertBundle\Entity\Repository\StockAlertRepository:
+        parent: oro_entity.abstract_repository
+        arguments:
+            - 'Synolia\Bundle\StockAlertBundle\Entity\StockAlert'
+
+    Synolia\Bundle\StockAlertBundle\Layout\DataProvider\InventoryQuantityDataProvider:
+        arguments:
+            - '@oro_inventory.provider.inventory_quantity'
+        tags:
+            - { name: layout.data_provider, alias: synolia_inventory_quantity }
+
+    Synolia\Bundle\StockAlertBundle\Layout\DataProvider\StockAlertDataProvider:
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@oro_security.token_accessor'
+        tags:
+            - { name: layout.data_provider, alias: synolia_stock_alert }
+
+    Synolia\Bundle\StockAlertBundle\Handler\StockAlertHandler:
+        public: true
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@oro_security.token_accessor'
+
+    Synolia\Bundle\StockAlertBundle\Twig\QuantityExtension:
+        public: true
+        arguments:
+            - '@Synolia\Bundle\StockAlertBundle\Layout\DataProvider\InventoryQuantityDataProvider'
+            - '@doctrine.orm.entity_manager'
+            - '@Synolia\Bundle\StockAlertBundle\Layout\DataProvider\StockAlertDataProvider'
+        tags:
+            - { name: twig.extension }
+
+    Synolia\Bundle\StockAlertBundle\Async\StockAlertNotificationProcessor:
+        arguments:
+            - '@oro_config.manager'
+            - '@oro_email.direct_mailer'
+        tags:
+            - { name: 'oro_message_queue.client.message_processor' }

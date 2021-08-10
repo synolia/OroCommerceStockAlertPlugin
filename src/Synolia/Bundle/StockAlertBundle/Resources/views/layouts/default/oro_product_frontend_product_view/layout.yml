@@ -1,0 +1,24 @@
+layout:
+    actions:
+        - '@setBlockTheme':
+            themes: 'SynoliaStockAlertBundle:layouts:default/oro_product_frontend_product_view/layout.html.twig'
+        - '@add':
+            id: quantity
+            blockType: block
+            parentId: product_view_specification_container
+            options:
+                vars:
+                    product: '=data["product"]'
+                    quantity: '=data["synolia_inventory_quantity"].getAvailableQuantity(data["product"])'
+        - '@addTree':
+              items:
+                  stock_alert_subscribe_link:
+                      blockType: block
+                      options:
+                          visible: '=data["synolia_inventory_quantity"].getAvailableQuantity(data["product"]) <= 0'
+                          vars:
+                              product: '=data["product"]'
+              tree:
+                  product_view_specification_container:
+                      stock_alert_subscribe_link: ~
+    conditions: 'context["is_logged_in"] == true'

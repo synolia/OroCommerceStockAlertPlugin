@@ -1,0 +1,3 @@
+styles:
+    inputs:
+        - 'bundles/synoliastockalert/default/scss/components/stock-alert.scss'
