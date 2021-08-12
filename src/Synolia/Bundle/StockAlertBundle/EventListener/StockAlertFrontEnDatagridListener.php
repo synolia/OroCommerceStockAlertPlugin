@@ -47,11 +47,7 @@ class StockAlertFrontEnDatagridListener
 
         foreach ($records as $record) {
             $productId = $record->getValue('id');
-            if (array_key_exists($productId, $stockAlerts)) {
-                $record->addData(['has_stock_alert' => true]);
-            } else {
-                $record->addData(['stock_alert' => false]);
-            }
+            $record->addData(['has_stock_alert' => array_key_exists($productId, $stockAlerts)]);
         }
     }
 

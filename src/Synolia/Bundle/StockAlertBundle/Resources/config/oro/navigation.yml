@@ -2,7 +2,7 @@ navigation:
     menu_config:
         items:
             synolia_stock_alert_list:
-                label: Stock Alerts
+                label: synolia.stockalert.entity_plural_label
                 route: 'synolia_stock_alert_frontend_index'
         tree:
             frontend_menu:

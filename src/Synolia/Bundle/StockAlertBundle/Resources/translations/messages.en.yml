@@ -1,3 +1,8 @@
 synolia:
     stockalert:
         entity_plural_label: Stock Alerts
+        alert:
+            register:
+                title: Notify me when this product is in stock
+            unregister:
+                title: I no longer wish to be notified when this product is in stock

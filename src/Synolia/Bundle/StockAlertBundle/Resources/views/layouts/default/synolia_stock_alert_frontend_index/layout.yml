@@ -15,4 +15,4 @@ layout:
         - '@setOption':
               id: page_title
               optionName: defaultValue
-              optionValue: 'Stock Alerts'
+              optionValue: synolia.stockalert.entity_plural_label
