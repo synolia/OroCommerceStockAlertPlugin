@@ -2,11 +2,11 @@
 
 
 ## Inventory configuration
-When you add stock to a product that has been out of stock, it will add the task of sending an email to the customer via the OroCommerce message queue.
+When the stock of a product changes from zero or below zero to any positive value, the task of sending an email to the customer is added to OroCommerce message queue.
 
 ![BO Inventory](media/synolia_stock_alert_bo_inventory.png)
 
 ## Receiving the email
-An email will be sent to the customer if the client subscribed to a product that was out of stock after the quantity was increased.
+An email is sent to the customer if the customer subscribed to that product and the inventory level is now positive.
 
 ![Email Sent](media/synolia_stock_alert_email.png)

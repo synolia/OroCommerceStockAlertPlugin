@@ -4,11 +4,11 @@
 [![Total Downloads](TODO)](TODO)
 
 # Oro Stock Alert Bundle
-This plugin allows the customer to subscribe to a product out of stock, to be notified when it is back in stock
+This plugin allows the customer to subscribe to a product whose stock level is equal or below zero and to be notified by email when the product is back in stock
 
 ## Features
 
-* Show the stock in the product view and subscribe when not in stock - [Documentation](docs/SHOW.md)
+* Show the stock level in the product view and a subscribe button when the product stock level is equal or below zero - [Documentation](docs/SHOW.md)
 * Receive an email when the product is back in stock - [Documentation](docs/EMAIL.md)
 * View all products a customer has subscribed to (FO and BO) - [Documentation](docs/LIST.md)
 
@@ -21,17 +21,21 @@ This plugin allows the customer to subscribe to a product out of stock, to be no
 
 ## Installation
 
-1. Install the plugin using composer:
+1. Install the Plugin using Composer:
 ```shell
 composer require synolia/orocommerce-stock-alert-plugin
 ```
-2. Run the migrations
+2. Run the Migrations
 ```shell
 bin/console oro:migration:load --force
 ```
-3. Clear cache
+3. Clear Cache
 ```shell
 bin/console cache:clear
+```
+4. Install & Build the Assets
+```shell
+bin/console oro:assets:install --symlink
 ```
 
 ## Contributing

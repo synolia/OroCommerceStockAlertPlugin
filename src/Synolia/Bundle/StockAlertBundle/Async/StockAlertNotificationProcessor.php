@@ -44,7 +44,7 @@ class StockAlertNotificationProcessor implements
         $message = new Swift_Message(
             'Stock Available',
             \sprintf(
-                'Dear %s, <br><br> The product <strong>%s</strong> with SKU <strong>%s</strong> is now <strong>with stock</strong>',
+                'Dear %s, <br><br> The product <strong>%s</strong> with SKU <strong>%s</strong> is now <strong>back in stock</strong>',
                 $body['customerFullName'],
                 $body['productName'],
                 $body['productSKU']

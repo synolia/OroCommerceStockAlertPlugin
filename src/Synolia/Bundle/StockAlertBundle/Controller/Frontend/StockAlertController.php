@@ -25,7 +25,6 @@ class StockAlertController extends AbstractController
         $entityClass = StockAlert::class;
         return [
             'entity_class' => $entityClass,
-            // TODO this wont be necessary, the entity set the scope
             'organization_id' => $this->getUser()->getOrganization()->getId(),
             'customer_user_id' => $this->getUser()->getId(),
         ];
@@ -42,7 +41,7 @@ class StockAlertController extends AbstractController
         if ($stockAlert) {
             return new JsonResponse([
                 'status' => 'success',
-                'message' => 'We will let you know when the stock is available',
+                'message' => 'We will inform you as soon as this product is in stock',
                 'stock' => $stockAlert->getId()
             ]);
         }
@@ -67,7 +66,7 @@ class StockAlertController extends AbstractController
         $handler->deleteByProduct($product);
         return new JsonResponse([
             'status' => 'success',
-            'message' => 'We wont alert you about this product'
+            'message' => 'The alert on that product stock level has been successfully deleted'
         ]);
     }
 }
