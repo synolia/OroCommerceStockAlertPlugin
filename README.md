@@ -1,5 +1,5 @@
 [![License](https://img.shields.io/packagist/l/synolia/sylius-akeneo-plugin.svg)](LICENCE)
-![Tests](TODO)
+[![CI](https://github.com/synolia/OroCommerceStockAlertPlugin/actions/workflows/ci.yml/badge.svg)](https://github.com/synolia/OroCommerceStockAlertPlugin/actions/workflows/ci.yml)
 [![Version](TODO)](TODO)
 [![Total Downloads](TODO)](TODO)
 
