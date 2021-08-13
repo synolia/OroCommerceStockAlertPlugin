@@ -1,7 +1,7 @@
 [![License](https://img.shields.io/packagist/l/synolia/sylius-akeneo-plugin.svg)](LICENCE)
 [![CI](https://github.com/synolia/OroCommerceStockAlertPlugin/actions/workflows/ci.yml/badge.svg)](https://github.com/synolia/OroCommerceStockAlertPlugin/actions/workflows/ci.yml)
-[![Version](TODO)](TODO)
-[![Total Downloads](TODO)](TODO)
+[![Version](http://poser.pugx.org/synolia/orocommerce-stock-alert-plugin/v)](https://packagist.org/packages/synolia/orocommerce-stock-alert-plugin)
+[![Total Downloads](http://poser.pugx.org/synolia/orocommerce-stock-alert-plugin/downloads)](https://packagist.org/packages/synolia/orocommerce-stock-alert-plugin)
 
 # Oro Stock Alert Bundle
 This plugin allows the customer to subscribe to a product whose stock level is equal or below zero and to be notified by email when the product is back in stock
