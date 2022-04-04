@@ -23,10 +23,21 @@ class StockAlertNotificationProcessor implements
      * @var ConfigManager
      */
     protected $configManager;
+
     /**
      * @var Mailer
      */
     protected $mailer;
+
+    /**
+     * @var TranslatorInterface
+     */
+    protected $translator;
+
+    /**
+     * @var Environment
+     */
+    protected $twig;
 
     public function __construct(
         ConfigManager $configManager,

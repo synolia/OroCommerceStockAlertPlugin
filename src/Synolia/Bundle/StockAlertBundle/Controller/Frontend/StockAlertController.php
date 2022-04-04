@@ -25,7 +25,9 @@ class StockAlertController extends AbstractController
         $entityClass = StockAlert::class;
         return [
             'entity_class' => $entityClass,
+            /* @phpstan-ignore-next-line */
             'organization_id' => $this->getUser()->getOrganization()->getId(),
+            /* @phpstan-ignore-next-line */
             'customer_user_id' => $this->getUser()->getId(),
         ];
     }
