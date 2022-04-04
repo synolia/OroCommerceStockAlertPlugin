@@ -2,7 +2,6 @@ import BaseView from 'oroui/js/app/views/base/view';
 import $ from 'jquery';
 import messenger from 'oroui/js/messenger';
 
-console.log("testtest")
 const StockAlert = BaseView.extend({
 
     productId: null,
@@ -15,7 +14,6 @@ const StockAlert = BaseView.extend({
 
     initialize(options) {
         this.options = {...this.options, ...options};
-        console.log(this.options)
 
         this.productId = this.options.productId;
         this.hasStock = this.options.hasStock;
