@@ -1,2 +1,2 @@
-{% import 'OroDataGridBundle::macros.html.twig' as dataGrid %}
+{% import '@OroDataGrid/macros.html.twig' as dataGrid %}
 {{ dataGrid.renderGrid('synolia-stock-alert-grid', {customer_user_id: entity.id, organization_id: entity.getOrganization().id}, {cssClass: 'inner-grid'}) }}

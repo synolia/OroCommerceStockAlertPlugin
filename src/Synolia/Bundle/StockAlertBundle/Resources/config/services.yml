@@ -3,6 +3,8 @@ services:
         parent: oro_entity.abstract_repository
         arguments:
             - 'Synolia\Bundle\StockAlertBundle\Entity\StockAlert'
+        tags:
+            - { name: doctrine.repository_service }
 
     Synolia\Bundle\StockAlertBundle\Layout\DataProvider\InventoryQuantityDataProvider:
         arguments:
@@ -35,6 +37,16 @@ services:
     Synolia\Bundle\StockAlertBundle\Async\StockAlertNotificationProcessor:
         arguments:
             - '@oro_config.manager'
-            - '@oro_email.direct_mailer'
+            - '@oro_email.mailer'
+            - '@translator.default'
+            - '@twig'
         tags:
             - { name: 'oro_message_queue.client.message_processor' }
+
+    Synolia\Bundle\StockAlertBundle\Controller\Frontend\StockAlertController:
+        public: true
+        calls:
+            - [setContainer, ['@Psr\Container\ContainerInterface']]
+        tags:
+            - { name: container.service_subscriber }
+            - { name: controller.service_arguments }

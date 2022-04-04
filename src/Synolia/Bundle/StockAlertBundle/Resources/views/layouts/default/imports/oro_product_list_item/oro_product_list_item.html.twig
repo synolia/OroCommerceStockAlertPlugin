@@ -4,7 +4,7 @@
          data-page-component-options="{{  {'product': product, 'hasStock': hasStock }|json_encode }}"
     >
         {% set quantity = synolia_product_quantity(product) %}
-        <div class="row mb-3">
+        <div class="row mb-3 stock-info">
             <div class="col">
                 <p class="{{ (quantity > 0) ? 'in_stock' : 'out_of_stock' }}">
                     <span class="fa-circle"></span>

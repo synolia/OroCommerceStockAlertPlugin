@@ -1,6 +1,6 @@
     {% block _quantity_widget %}
-        <div {{ block('block_attributes') }}>
-            <p class="{{ quantity > 0 ? 'in_stock' :'out_of_stock'}}" style="font-size: larger">
+        <div class="stock-info" {{ block('block_attributes') }}>
+            <p class="{{ quantity > 0 ? 'in_stock' :'out_of_stock'}}">
                 {{ quantity | number_format(0,',','.')}} in stock
             </p>
         </div>
@@ -9,7 +9,7 @@
         {% set hasStock = product.has_stock_alert ?? synolia_product_has_stock_alert(product) %}
         {% set attr = layout_attr_defaults(attr, {
             'data-page-component-view': 'synoliastockalert/js/app/views/stock-alert',
-            'data-page-component-options': {'product': product, 'hasStock': hasStock }|json_encode,
+            'data-page-component-options': {'productId': product.id, 'hasStock': hasStock }|json_encode,
         }) %}
         <div {{ block('block_attributes') }}>
             {{ block_widget(block) }}

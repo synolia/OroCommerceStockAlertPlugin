@@ -2,9 +2,10 @@ import BaseView from 'oroui/js/app/views/base/view';
 import $ from 'jquery';
 import messenger from 'oroui/js/messenger';
 
+console.log("testtest")
 const StockAlert = BaseView.extend({
 
-    product: null,
+    productId: null,
     hasStock: false,
 
     events: {
@@ -14,7 +15,9 @@ const StockAlert = BaseView.extend({
 
     initialize(options) {
         this.options = {...this.options, ...options};
-        this.product = this.options.product;
+        console.log(this.options)
+
+        this.productId = this.options.productId;
         this.hasStock = this.options.hasStock;
         if (this.hasStock) {
             $('.delete-stock-alert', this.options.el).show();
@@ -28,7 +31,7 @@ const StockAlert = BaseView.extend({
         const self = this;
 
         $.ajax({
-            url: `/stock-alert/create/${this.product.id}`,
+            url: `/stock-alert/create/${this.productId}`,
             method: 'POST',
             success: function(response) {
                 if (response.message && response.status) {
@@ -46,7 +49,7 @@ const StockAlert = BaseView.extend({
         e.preventDefault();
         const self = this;
         $.ajax({
-            url: `/stock-alert/delete/${this.product.id}`,
+            url: `/stock-alert/delete/${this.productId}`,
             method: 'DELETE',
             success: function(response) {
                 if (response.message && response.status) {
