@@ -15,9 +15,9 @@ This plugin allows the customer to subscribe to a product whose stock level is e
 ## Requirements
 
 | | Version |
-| :--- | :--- |
-| PHP  | 7.4, 8.0 |
-| OroCommerce | 4.2 |
+| :--- | :-- |
+| PHP  | 8.1 |
+| OroCommerce | 5.0 |
 
 ## Installation
 
