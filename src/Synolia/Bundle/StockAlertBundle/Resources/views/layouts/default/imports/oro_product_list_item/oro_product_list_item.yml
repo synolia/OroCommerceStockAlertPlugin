@@ -1,7 +1,7 @@
 layout:
     actions:
         - '@setBlockTheme':
-            themes: 'SynoliaStockAlertBundle:layouts:default/imports/oro_product_list_item/oro_product_list_item.html.twig'
+            themes: '@SynoliaStockAlert/layouts/default/imports/oro_product_list_item/oro_product_list_item.html.twig'
         - '@add':
             id: __stock_alert
             blockType: block

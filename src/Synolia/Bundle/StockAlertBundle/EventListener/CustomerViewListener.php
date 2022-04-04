@@ -10,7 +10,7 @@ class CustomerViewListener extends AbstractCustomerViewListener
 {
     protected function getCustomerViewTemplate(): string
     {
-        return 'SynoliaStockAlertBundle:Customer:alert_view.html.twig';
+        return '@SynoliaStockAlert/Customer/alert_view.html.twig';
     }
 
     protected function getCustomerLabel(): string
@@ -20,7 +20,7 @@ class CustomerViewListener extends AbstractCustomerViewListener
 
     protected function getCustomerUserViewTemplate(): string
     {
-        return 'SynoliaStockAlertBundle:CustomerUser:alert_view.html.twig';
+        return '@SynoliaStockAlert/CustomerUser/alert_view.html.twig';
     }
 
     protected function getCustomerUserLabel(): string

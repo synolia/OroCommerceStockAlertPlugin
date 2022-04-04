@@ -6,7 +6,7 @@ layout:
 
     actions:
         - '@setBlockTheme':
-              themes: 'SynoliaStockAlertBundle:layouts:default/imports/synolia_stock_alert_grid/layout.html.twig'
+              themes: '@SynoliaStockAlert/layouts/default/imports/synolia_stock_alert_grid/layout.html.twig'
 
         - '@setOption':
               id: __datagrid

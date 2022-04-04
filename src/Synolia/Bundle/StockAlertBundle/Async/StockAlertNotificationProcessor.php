@@ -5,13 +5,15 @@ declare(strict_types=1);
 namespace Synolia\Bundle\StockAlertBundle\Async;
 
 use Oro\Bundle\ConfigBundle\Config\ConfigManager;
-use Oro\Bundle\EmailBundle\Mailer\DirectMailer;
+use Oro\Bundle\EmailBundle\Mailer\Mailer;
 use Oro\Component\MessageQueue\Client\TopicSubscriberInterface;
 use Oro\Component\MessageQueue\Consumption\MessageProcessorInterface;
 use Oro\Component\MessageQueue\Transport\MessageInterface;
 use Oro\Component\MessageQueue\Transport\SessionInterface;
 use Oro\Component\MessageQueue\Util\JSON;
-use Swift_Message;
+use Symfony\Component\Mime\Email;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use Twig\Environment;
 
 class StockAlertNotificationProcessor implements
     MessageProcessorInterface,
@@ -21,15 +23,33 @@ class StockAlertNotificationProcessor implements
      * @var ConfigManager
      */
     protected $configManager;
+
     /**
-     * @var DirectMailer
+     * @var Mailer
      */
     protected $mailer;
 
-    public function __construct(ConfigManager $configManager, DirectMailer $mailer)
+    /**
+     * @var TranslatorInterface
+     */
+    protected $translator;
+
+    /**
+     * @var Environment
+     */
+    protected $twig;
+
+    public function __construct(
+        ConfigManager $configManager,
+        Mailer $mailer,
+        TranslatorInterface $translator,
+        Environment $twig
+    )
     {
         $this->configManager = $configManager;
         $this->mailer = $mailer;
+        $this->translator = $translator;
+        $this->twig = $twig;
     }
 
     /**
@@ -41,19 +61,16 @@ class StockAlertNotificationProcessor implements
         if (empty($body['customerEmail'])) {
             return self::REJECT;
         }
-        $message = new Swift_Message(
-            'Stock Available',
-            \sprintf(
-                'Dear %s, <br><br> The product <strong>%s</strong> with SKU <strong>%s</strong> is now <strong>back in stock</strong>',
-                $body['customerFullName'],
-                $body['productName'],
-                $body['productSKU']
-            ),
-            'text/html'
-        );
-        $message->setFrom($this->getSenderEmail());
-        $message->setTo($body['customerEmail']);
+        $message = new Email();
+        $message->from($this->getSenderEmail())
+            ->to($body['customerEmail'])
+            ->subject($this->translator->trans('synolia.stockalert.mail.subject'))
+            ->html(
+                $this->twig->render('@SynoliaStockAlert/mail/available.html.twig', $body)
+            );
+
         $this->mailer->send($message);
+
         return self::ACK;
     }
 

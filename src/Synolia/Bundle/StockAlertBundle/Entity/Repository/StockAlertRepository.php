@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Synolia\Bundle\StockAlertBundle\Entity\Repository;
 
-use Doctrine\ORM\EntityRepository;
 use Oro\Bundle\ProductBundle\Entity\Product;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
-class StockAlertRepository extends EntityRepository
+class StockAlertRepository extends ServiceEntityRepository
 {
     public function findUnexpiredByProduct(Product $product)
     {

@@ -25,7 +25,9 @@ class StockAlertController extends AbstractController
         $entityClass = StockAlert::class;
         return [
             'entity_class' => $entityClass,
+            /* @phpstan-ignore-next-line */
             'organization_id' => $this->getUser()->getOrganization()->getId(),
+            /* @phpstan-ignore-next-line */
             'customer_user_id' => $this->getUser()->getId(),
         ];
     }
@@ -34,9 +36,8 @@ class StockAlertController extends AbstractController
      * @Route("/create/{id}", name="synolia_stock_alert_create", requirements={"id"="\d+"})
      * @ParamConverter("product", class="OroProductBundle:Product", options={"id" = "id"})
      */
-    public function createAction(Product $product): JsonResponse
+    public function createAction(Product $product, StockAlertHandler $handler): JsonResponse
     {
-        $handler = $this->get(StockAlertHandler::class);
         $stockAlert = $handler->create($product);
         if ($stockAlert) {
             return new JsonResponse([
@@ -60,9 +61,8 @@ class StockAlertController extends AbstractController
      * @CsrfProtection()
      * @ParamConverter("product", class="OroProductBundle:Product", options={"id" = "id"})
      */
-    public function deleteAction(Product $product): JsonResponse
+    public function deleteAction(Product $product, StockAlertHandler $handler): JsonResponse
     {
-        $handler = $this->get(StockAlertHandler::class);
         $handler->deleteByProduct($product);
         return new JsonResponse([
             'status' => 'success',

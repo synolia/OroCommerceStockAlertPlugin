@@ -6,3 +6,5 @@ synolia:
                 title: Notify me when this product is in stock
             unregister:
                 title: I no longer wish to be notified when this product is in stock
+        mail:
+            subject: Stock Available

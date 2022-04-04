@@ -38,7 +38,7 @@ class SynoliaStockAlertBundleInstaller implements Installation
         $table->addColumn('organization_id', 'integer', ['notnull' => false]);
         $table->addColumn('customer_id', 'integer', ['notnull' => false]);
         $table->addColumn('customer_user_id', 'integer', ['notnull' => false]);
-        $table->addColumn('serialized_data', 'array', ['notnull' => false, 'length' => 0, 'comment' => '(DC2Type:array)']);
+        $table->addColumn('serialized_data', 'json_array', ['jsonb' => true, 'notnull' => false, 'length' => 0, 'comment' => '(DC2Type:array)']);
         $table->addColumn('expiration_date', 'datetime', ['notnull' => false, 'length' => 0, 'comment' => '(DC2Type:datetime)']);
         $table->addColumn('created_at', 'datetime', ['length' => 0, 'comment' => '(DC2Type:datetime)']);
         $table->addColumn('updated_at', 'datetime', ['length' => 0, 'comment' => '(DC2Type:datetime)']);
