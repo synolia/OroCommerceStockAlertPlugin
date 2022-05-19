@@ -9,15 +9,13 @@ $config = new PhpCsFixer\Config();
 $config
     ->setRiskyAllowed(true)
     ->setRules([
+        'psr_autoloading' => true,
         '@PSR1' => true,
         '@PSR2' => true,
-        'psr0' => true,
-        'psr4' => true,
         'ordered_imports' => true,
-        'no_extra_consecutive_blank_lines' => ['use'],
+        'no_extra_blank_lines' => true,
         'php_unit_namespaced' => ['target' => '6.0'],
         'php_unit_expectation' => true,
-
     ])
     ->setFinder($finder)
 ;

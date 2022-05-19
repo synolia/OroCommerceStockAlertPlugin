@@ -44,8 +44,7 @@ class StockAlertNotificationProcessor implements
         Mailer $mailer,
         TranslatorInterface $translator,
         Environment $twig
-    )
-    {
+    ) {
         $this->configManager = $configManager;
         $this->mailer = $mailer;
         $this->translator = $translator;
