@@ -77,7 +77,6 @@ class StockAlert extends ExtendStockAlert implements
      */
     protected $expirationDate;
 
-
     public function getId(): int
     {
         return $this->id;

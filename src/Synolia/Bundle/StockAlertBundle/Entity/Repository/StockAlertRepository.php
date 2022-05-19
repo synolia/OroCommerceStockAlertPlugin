@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Synolia\Bundle\StockAlertBundle\Entity\Repository;
 
-use Oro\Bundle\ProductBundle\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Oro\Bundle\ProductBundle\Entity\Product;
 
 class StockAlertRepository extends ServiceEntityRepository
 {

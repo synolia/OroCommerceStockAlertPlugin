@@ -94,7 +94,6 @@ class StockAlertHandler
         return (new DateTime())->add(new DateInterval('P3M'));
     }
 
-
     private function getStockAlert(Product $product, CustomerUser $user, Organization $organization)
     {
         $stockAlertRepository = $this->entityManager->getRepository(StockAlert::class);
