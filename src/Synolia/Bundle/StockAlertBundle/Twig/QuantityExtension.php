@@ -6,6 +6,7 @@ namespace Synolia\Bundle\StockAlertBundle\Twig;
 
 use Doctrine\ORM\EntityManager;
 use Oro\Bundle\ProductBundle\Entity\Product;
+use Oro\Bundle\ProductBundle\Model\ProductView;
 use Synolia\Bundle\StockAlertBundle\Entity\StockAlert;
 use Synolia\Bundle\StockAlertBundle\Layout\DataProvider\InventoryQuantityDataProvider;
 use Synolia\Bundle\StockAlertBundle\Layout\DataProvider\StockAlertDataProvider;
@@ -14,18 +15,9 @@ use Twig\TwigFunction;
 
 class QuantityExtension extends AbstractExtension
 {
-    /**
-     * @var InventoryQuantityDataProvider
-     */
-    protected $inventoryQuantityDataProvider;
-    /**
-     * @var EntityManager
-     */
-    protected $entityManager;
-    /**
-     * @var StockAlertDataProvider
-     */
-    protected $stockAlertDataProvider;
+    protected InventoryQuantityDataProvider $inventoryQuantityDataProvider;
+    protected EntityManager $entityManager;
+    protected StockAlertDataProvider $stockAlertDataProvider;
 
     public function __construct(
         InventoryQuantityDataProvider $inventoryQuantityDataProvider,
@@ -37,7 +29,7 @@ class QuantityExtension extends AbstractExtension
         $this->stockAlertDataProvider = $stockAlertDataProvider;
     }
 
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction(
@@ -51,15 +43,15 @@ class QuantityExtension extends AbstractExtension
         ];
     }
 
-    public function getProductQuantity($product): int
+    public function getProductQuantity(mixed $product): int
     {
-        $product = $this->getProductObjec($product);
+        $product = $this->getProductObj($product);
         return $this->inventoryQuantityDataProvider->getAvailableQuantity($product);
     }
 
-    public function productHasStockAlert($product): bool
+    public function productHasStockAlert(mixed $product): bool
     {
-        $product = $this->getProductObjec($product);
+        $product = $this->getProductObj($product);
         $stockAlert = $this->stockAlertDataProvider->getStockAlertForProduct($product);
         if ($stockAlert instanceof StockAlert) {
             return true;
@@ -67,11 +59,14 @@ class QuantityExtension extends AbstractExtension
         return false;
     }
 
-    protected function getProductObjec($product) : Product
+    protected function getProductObj(mixed $product): Product
     {
-        if ($product instanceof  Product) {
-            return $product;
+        if ($product instanceof ProductView) {
+            return $this->entityManager->getRepository(Product::class)->findOneBy(['id' => $product->getId()]);
         }
-        return $this->entityManager->getRepository(Product::class)->findOneBy(['id' => $product['id']]);
+        if (is_array($product)) {
+            return $this->entityManager->getRepository(Product::class)->findOneBy(['id' => $product['id']]);
+        }
+        return $product;
     }
 }
