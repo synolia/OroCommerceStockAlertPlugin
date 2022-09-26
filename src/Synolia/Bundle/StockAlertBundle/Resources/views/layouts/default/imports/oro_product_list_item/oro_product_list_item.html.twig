@@ -1,9 +1,9 @@
 {% block __oro_product_list_item__stock_alert_widget %}
-    {% set hasStock = product.has_stock_alert ?? synolia_product_has_stock_alert(product) %}
+    {% set hasStock = product.has_stock_alert ?? false %}
     <div data-page-component-view="synoliastockalert/js/app/views/stock-alert"
          data-page-component-options="{{  {'product': product, 'hasStock': hasStock }|json_encode }}"
     >
-        {% set quantity = synolia_product_quantity(product) %}
+        {% set quantity = product.quantity ?? 0 %}
         <div class="row mb-3 stock-info">
             <div class="col">
                 <p class="{{ (quantity > 0) ? 'in_stock' : 'out_of_stock' }}">
