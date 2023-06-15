@@ -1,10 +1,11 @@
 synolia:
     stockalert:
-        entity_plural_label: Stock Alerts
+        entity_label: Stock alert
+        entity_plural_label: Stock alerts
         alert:
             register:
                 title: Notify me when this product is in stock
+                confirmation_message: We will inform you as soon as this product is in stock
             unregister:
                 title: I no longer wish to be notified when this product is in stock
-        mail:
-            subject: Stock Available
+                confirmation_message: The alert on that product stock level has been successfully deleted

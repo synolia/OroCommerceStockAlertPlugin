@@ -10,32 +10,26 @@ use Oro\Bundle\CustomerBundle\Entity\CustomerUser;
 use Oro\Bundle\InventoryBundle\Entity\InventoryLevel;
 use Oro\Bundle\ProductBundle\Entity\Product;
 use Oro\Component\MessageQueue\Client\MessageProducerInterface;
-use Synolia\Bundle\StockAlertBundle\Async\Topics;
+use Oro\Component\MessageQueue\Transport\Exception\Exception;
+use Synolia\Bundle\StockAlertBundle\Async\Topic\StockAlertNotificationTopic;
 use Synolia\Bundle\StockAlertBundle\Entity\Repository\StockAlertRepository;
 use Synolia\Bundle\StockAlertBundle\Handler\StockAlertHandler;
 
 class InventoryLevelNotificationEventListener
 {
-    /** @var StockAlertRepository */
-    protected $stockAlertRepository;
-    /** @var StockAlertHandler  */
-    protected $stockAlertHandler;
-    /* @var MessageProducerInterface */
-    private $messageProducer;
-
     public $stockAlerts = [];
 
     public function __construct(
-        StockAlertRepository $stockAlertRepository,
-        StockAlertHandler $stockAlertHandler,
-        MessageProducerInterface $messageProducer
+        protected StockAlertRepository $stockAlertRepository,
+        protected StockAlertHandler $stockAlertHandler,
+        protected MessageProducerInterface $messageProducer
     ) {
-        $this->stockAlertRepository = $stockAlertRepository;
-        $this->stockAlertHandler = $stockAlertHandler;
-        $this->messageProducer = $messageProducer;
     }
 
-    public function preUpdate(InventoryLevel $inventoryLevel, LifecycleEventArgs $args)
+    /**
+     * @throws Exception
+     */
+    public function preUpdate(InventoryLevel $inventoryLevel, LifecycleEventArgs $args): void
     {
         if (!$args->getEntity() instanceof InventoryLevel) {
             return;
@@ -50,12 +44,12 @@ class InventoryLevelNotificationEventListener
         }
     }
 
-    public function postUpdate()
+    public function postUpdate(): void
     {
         $this->stockAlertHandler->deleteStockAlerts($this->stockAlerts);
     }
 
-    private function inventoryHasNewStock(LifecycleEventArgs $args): bool
+    protected function inventoryHasNewStock(LifecycleEventArgs $args): bool
     {
         /** @var PreUpdateEventArgs $args */
         $oldQuantity = floatval($args->getOldValue('quantity'));
@@ -64,9 +58,12 @@ class InventoryLevelNotificationEventListener
         return $oldQuantity <= 0 && $newQuantity > 0;
     }
 
-    private function sendStockAlertMessage(CustomerUser $customerUser, Product $product)
+    /**
+     * @throws Exception
+     */
+    protected function sendStockAlertMessage(CustomerUser $customerUser, Product $product): void
     {
-        $this->messageProducer->send(Topics::SYNOLIA_STOCK_ALERT_MESSAGE, [
+        $this->messageProducer->send(StockAlertNotificationTopic::getName(), [
             'customerEmail' => $customerUser->getEmail(),
             'customerFullName' => $customerUser->getFullName(),
             'productName' => $product->getName()->getString(),

@@ -14,10 +14,11 @@ class SynoliaStockAlertExtension extends Extension
     /**
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container): void
     {
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
         $loader->load('event_listeners.yml');
+        $loader->load('mq_topics.yml');
     }
 }

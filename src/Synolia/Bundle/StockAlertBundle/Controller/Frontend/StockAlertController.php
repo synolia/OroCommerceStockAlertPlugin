@@ -11,11 +11,19 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Synolia\Bundle\StockAlertBundle\Entity\StockAlert;
 use Synolia\Bundle\StockAlertBundle\Handler\StockAlertHandler;
 
 class StockAlertController extends AbstractController
 {
+    protected TranslatorInterface $translator;
+
+    public function setTranslator(TranslatorInterface $translator): void
+    {
+        $this->translator = $translator;
+    }
+
     /**
      * @Route("/", name="synolia_stock_alert_frontend_index")
      * @Layout(vars={"entity_class", "organization_id", "customer_user_id"})
@@ -23,6 +31,7 @@ class StockAlertController extends AbstractController
     public function indexAction(): array
     {
         $entityClass = StockAlert::class;
+
         return [
             'entity_class' => $entityClass,
             /* @phpstan-ignore-next-line */
@@ -39,13 +48,15 @@ class StockAlertController extends AbstractController
     public function createAction(Product $product, StockAlertHandler $handler): JsonResponse
     {
         $stockAlert = $handler->create($product);
+
         if ($stockAlert) {
             return new JsonResponse([
                 'status' => 'success',
-                'message' => 'We will inform you as soon as this product is in stock',
+                'message' => $this->translator->trans('synolia.stockalert.alert.register.confirmation_message'),
                 'stock' => $stockAlert->getId()
             ]);
         }
+
         return new JsonResponse([
             'success' => false
         ]);
@@ -64,9 +75,10 @@ class StockAlertController extends AbstractController
     public function deleteAction(Product $product, StockAlertHandler $handler): JsonResponse
     {
         $handler->deleteByProduct($product);
+
         return new JsonResponse([
             'status' => 'success',
-            'message' => 'The alert on that product stock level has been successfully deleted'
+            'message' => $this->translator->trans('synolia.stockalert.alert.unregister.confirmation_message'),
         ]);
     }
 }

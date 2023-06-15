@@ -12,6 +12,8 @@ use Oro\Bundle\CustomerBundle\Entity\Ownership\FrontendCustomerUserAwareTrait;
 use Oro\Bundle\EntityBundle\EntityProperty\DatesAwareInterface;
 use Oro\Bundle\EntityBundle\EntityProperty\DatesAwareTrait;
 use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
+use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityInterface;
+use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityTrait;
 use Oro\Bundle\OrganizationBundle\Entity\OrganizationAwareInterface;
 use Oro\Bundle\ProductBundle\Entity\Product;
 use Oro\Bundle\UserBundle\Entity\Ownership\UserAwareTrait;
@@ -44,38 +46,34 @@ use Synolia\Bundle\StockAlertBundle\Model\ExtendStockAlert;
  * )
  */
 class StockAlert extends ExtendStockAlert implements
+    ExtendEntityInterface,
     OrganizationAwareInterface,
     CustomerOwnerAwareInterface,
     DatesAwareInterface
 {
     use DatesAwareTrait;
-    use UserAwareTrait;
+    use ExtendEntityTrait;
     use FrontendCustomerAwareTrait;
     use FrontendCustomerUserAwareTrait;
+    use UserAwareTrait;
 
     /**
-     * @var int
-     *
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected $id;
+    protected int $id;
 
     /**
-     * @var Product
-     *
      * @ORM\ManyToOne(targetEntity="Oro\Bundle\ProductBundle\Entity\Product")
      * @ORM\JoinColumn(name="product_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
-    protected $product;
+    protected Product $product;
 
     /**
-     * @var DateTime
-     *
      * @ORM\Column(name="expiration_date", type="datetime", nullable=true)
      */
-    protected $expirationDate;
+    protected ?DateTime $expirationDate;
 
     public function getId(): int
     {
@@ -90,17 +88,19 @@ class StockAlert extends ExtendStockAlert implements
     public function setProduct(Product $product): self
     {
         $this->product = $product;
+
         return $this;
     }
 
-    public function getExpirationDate(): DateTime
+    public function getExpirationDate(): ?DateTime
     {
         return $this->expirationDate;
     }
 
-    public function setExpirationDate(DateTime $expirationDate): self
+    public function setExpirationDate(?DateTime $expirationDate): self
     {
         $this->expirationDate = $expirationDate;
+
         return $this;
     }
 }
