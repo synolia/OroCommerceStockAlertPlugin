@@ -45,6 +45,7 @@ services:
         public: true
         calls:
             - [setContainer, ['@Psr\Container\ContainerInterface']]
+            - [setTranslator, ['@translator']]
         tags:
             - { name: container.service_subscriber }
             - { name: controller.service_arguments }
