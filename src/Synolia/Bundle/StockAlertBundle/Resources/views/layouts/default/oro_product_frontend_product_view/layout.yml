@@ -21,4 +21,3 @@ layout:
               tree:
                   product_view_specification_container:
                       stock_alert_subscribe_link: ~
-    conditions: 'context["is_logged_in"] == true'

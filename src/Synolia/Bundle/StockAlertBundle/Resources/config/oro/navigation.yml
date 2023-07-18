@@ -4,6 +4,10 @@ navigation:
             synolia_stock_alert_list:
                 label: synolia.stockalert.entity_plural_label
                 route: 'synolia_stock_alert_frontend_index'
+            synolia_admin_stock_alert_list:
+                route: 'synolia_stock_alert_index'
+                label: synolia.stockalert.entity_plural_label
+                position: 200
         tree:
             frontend_menu:
                 children:
@@ -14,3 +18,9 @@ navigation:
                 scope_type: menu_frontend_visibility
                 children:
                     synolia_stock_alert_list: ~
+            # BO
+            application_menu:
+                children:
+                    inventory_tab:
+                        children:
+                            synolia_admin_stock_alert_list: ~

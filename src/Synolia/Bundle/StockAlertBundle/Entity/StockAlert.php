@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Synolia\Bundle\StockAlertBundle\Entity;
 
-use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Oro\Bundle\CustomerBundle\Entity\CustomerOwnerAwareInterface;
 use Oro\Bundle\CustomerBundle\Entity\Ownership\FrontendCustomerAwareTrait;
@@ -73,7 +72,7 @@ class StockAlert extends ExtendStockAlert implements
     /**
      * @ORM\Column(name="expiration_date", type="datetime", nullable=true)
      */
-    protected ?DateTime $expirationDate;
+    protected ?\DateTime $expirationDate;
 
     public function getId(): int
     {
@@ -92,12 +91,12 @@ class StockAlert extends ExtendStockAlert implements
         return $this;
     }
 
-    public function getExpirationDate(): ?DateTime
+    public function getExpirationDate(): ?\DateTime
     {
         return $this->expirationDate;
     }
 
-    public function setExpirationDate(?DateTime $expirationDate): self
+    public function setExpirationDate(?\DateTime $expirationDate): self
     {
         $this->expirationDate = $expirationDate;
 

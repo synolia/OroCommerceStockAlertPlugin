@@ -61,7 +61,7 @@ datagrids:
                 acl_resource:  oro_product_view
                 rowAction:     true
 
-    synolia-stock-alert-grid:
+    synolia-stock-alert-base-grid:
         source:
             type: orm
             query:
@@ -76,24 +76,34 @@ datagrids:
                 join:
                     left:
                         - { join: stock_alert.product, alias: product }
-                where:
-                    and:
-                        - stock_alert.organization = :organization_id
-                        - stock_alert.customerUser = :customer_user_id
-            bind_parameters:
-                - organization_id
-                - customer_user_id
         columns:
             sku:
                 label: SKU
+                order: 10
             name:
                 label: Product
+                order: 20
             createdAt:
                 label: Created at
                 frontend_type: datetime
+                order: 50
             expirationDate:
                 label: Expiration date
                 frontend_type: datetime
+                order: 60
+
+    synolia-stock-alert-grid:
+        extends: synolia-stock-alert-base-grid
+        source:
+            query:
+                where:
+                    and:
+                        - stock_alert.organization = :organization_id
+                        - stock_alert.customerUser = :customer_user_id or stock_alert.customer = :customer_id
+            bind_parameters:
+                - organization_id
+                - customer_id
+                - customer_user_id
         properties:
             id: ~
             view_link:
@@ -108,3 +118,29 @@ datagrids:
                 icon:          eye
                 acl_resource:  oro_product_view
                 rowAction:     true
+
+    synolia-global-stock-alert-grid:
+        extends: synolia-stock-alert-base-grid
+        source:
+            type: orm
+            query:
+                select:
+                    - customer.id as customerId
+                    - customer.name as customerCompanyName
+                    - customerUser.id as customerUserId
+                    - CONCAT(customerUser.firstName, ' ', customerUser.lastName) as customerUserFullName
+                    - stock_alert.recipient_email as recipientEmail
+                join:
+                    left:
+                        - { join: stock_alert.customer, alias: customer }
+                        - { join: stock_alert.customerUser, alias: customerUser }
+        columns:
+            customerCompanyName:
+                label: Customer
+                order: 30
+            customerUserFullName:
+                label: Customer user
+                order: 35
+            recipientEmail:
+                label: Email
+                order: 40

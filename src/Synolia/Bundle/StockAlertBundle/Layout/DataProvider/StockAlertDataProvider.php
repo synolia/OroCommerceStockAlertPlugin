@@ -5,21 +5,16 @@ declare(strict_types=1);
 namespace Synolia\Bundle\StockAlertBundle\Layout\DataProvider;
 
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Exception\NotSupported;
 use Oro\Bundle\ProductBundle\Entity\Product;
 use Oro\Bundle\SecurityBundle\Authentication\TokenAccessor;
 use Synolia\Bundle\StockAlertBundle\Entity\StockAlert;
 
 class StockAlertDataProvider
 {
-    /**
-     * @var EntityManager
-     */
-    protected $entityManager;
+    protected EntityManager $entityManager;
 
-    /**
-     * @var TokenAccessor
-     */
-    protected $tokenAccessor;
+    protected TokenAccessor $tokenAccessor;
 
     public function __construct(
         EntityManager $entityManager,
@@ -29,16 +24,23 @@ class StockAlertDataProvider
         $this->tokenAccessor = $tokenAccessor;
     }
 
-    public function getStockAlertForProduct(Product $product)
+    /**
+     * @throws NotSupported
+     */
+    public function getStockAlertForProduct(Product $product): ?StockAlert
     {
         $stockAlertRepository = $this->entityManager->getRepository(StockAlert::class);
         $user = $this->tokenAccessor->getUser();
         $organization = $this->tokenAccessor->getOrganization();
 
-        return $stockAlertRepository->findOneBy([
-            'product' => $product,
-            'customerUser' => $user,
-            'organization' => $organization
-        ]);
+        if ($user && $organization) {
+            return $stockAlertRepository->findOneBy([
+                'product' => $product,
+                'customerUser' => $user,
+                'organization' => $organization,
+            ]);
+        }
+
+        return null;
     }
 }

@@ -24,6 +24,7 @@ services:
         arguments:
             - '@doctrine.orm.entity_manager'
             - '@oro_security.token_accessor'
+            - '@oro_config.manager'
 
     Synolia\Bundle\StockAlertBundle\Twig\QuantityExtension:
         public: true
@@ -45,6 +46,9 @@ services:
         public: true
         calls:
             - [setContainer, ['@Psr\Container\ContainerInterface']]
+            - [setManager, ['@doctrine.orm.entity_manager']]
+            - [setTranslator, ['@translator']]
+            - [setHandler, ['@Synolia\Bundle\StockAlertBundle\Handler\StockAlertHandler']]
         tags:
             - { name: container.service_subscriber }
             - { name: controller.service_arguments }
@@ -55,3 +59,11 @@ services:
             - '@oro_config.manager'
             - '@oro_email.email_renderer'
             - '@oro_email.sender.email_model_sender'
+
+    Synolia\Bundle\StockAlertBundle\Controller\StockAlertController:
+        public: true
+        calls:
+            - [setContainer, ['@Psr\Container\ContainerInterface']]
+        tags:
+            - { name: container.service_subscriber }
+            - { name: controller.service_arguments }

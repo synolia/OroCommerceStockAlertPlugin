@@ -1,35 +1,33 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Synolia\Bundle\StockAlertBundle\Migrations\Schema;
 
 use Doctrine\DBAL\Schema\Schema;
+use Doctrine\DBAL\Schema\SchemaException;
+use Doctrine\DBAL\Types\Types;
+use Oro\Bundle\EntityExtendBundle\EntityConfig\ExtendScope;
 use Oro\Bundle\MigrationBundle\Migration\Installation;
 use Oro\Bundle\MigrationBundle\Migration\QueryBag;
 
-/**
- * @SuppressWarnings(PHPMD.TooManyMethods)
- * @SuppressWarnings(PHPMD.ExcessiveClassLength)
- */
 class SynoliaStockAlertBundleInstaller implements Installation
 {
-    public function getMigrationVersion()
+    public function getMigrationVersion(): string
     {
-        return 'v1_0';
+        return 'v1_1';
     }
 
     /**
-     * {@inheritdoc}
+     * @throws SchemaException
      */
-    public function up(Schema $schema, QueryBag $queries)
+    public function up(Schema $schema, QueryBag $queries): void
     {
-        /** Tables generation **/
         $this->createSynoliaStockAlertTable($schema);
-
-        /** Foreign keys generation **/
         $this->addSynoliaStockAlertForeignKeys($schema);
     }
 
-    protected function createSynoliaStockAlertTable(Schema $schema)
+    protected function createSynoliaStockAlertTable(Schema $schema): void
     {
         $table = $schema->createTable('synolia_stock_alert');
         $table->addColumn('id', 'integer', ['autoincrement' => true]);
@@ -38,6 +36,16 @@ class SynoliaStockAlertBundleInstaller implements Installation
         $table->addColumn('organization_id', 'integer', ['notnull' => false]);
         $table->addColumn('customer_id', 'integer', ['notnull' => false]);
         $table->addColumn('customer_user_id', 'integer', ['notnull' => false]);
+        $table->addColumn(
+            'recipient_email',
+            Types::STRING,
+            [
+                'notnull' => false,
+                'oro_options' => [
+                    'extend' => ['is_extend' => true, 'owner' => ExtendScope::OWNER_CUSTOM, 'nullable' => true],
+                ],
+            ]
+        );
         $table->addColumn('serialized_data', 'json_array', ['jsonb' => true, 'notnull' => false, 'length' => 0, 'comment' => '(DC2Type:array)']);
         $table->addColumn('expiration_date', 'datetime', ['notnull' => false, 'length' => 0, 'comment' => '(DC2Type:datetime)']);
         $table->addColumn('created_at', 'datetime', ['length' => 0, 'comment' => '(DC2Type:datetime)']);
@@ -50,7 +58,10 @@ class SynoliaStockAlertBundleInstaller implements Installation
         $table->addIndex(['product_id'], 'IDX_ED3196644584665A', []);
     }
 
-    protected function addSynoliaStockAlertForeignKeys(Schema $schema)
+    /**
+     * @throws SchemaException
+     */
+    protected function addSynoliaStockAlertForeignKeys(Schema $schema): void
     {
         $table = $schema->getTable('synolia_stock_alert');
         $table->addForeignKeyConstraint(
