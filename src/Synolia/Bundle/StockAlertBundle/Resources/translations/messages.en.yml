@@ -6,6 +6,9 @@ synolia:
             register:
                 title: Notify me when this product is in stock
                 confirmation_message: We will inform you as soon as this product is in stock
+                error_message: Unable to save stock alert notification request
             unregister:
                 title: I no longer wish to be notified when this product is in stock
                 confirmation_message: The alert on that product stock level has been successfully deleted
+        recipient_email.label: Email
+        customer.fullname: customer

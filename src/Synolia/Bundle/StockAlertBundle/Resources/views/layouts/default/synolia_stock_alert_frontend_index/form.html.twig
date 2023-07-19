@@ -1,0 +1,14 @@
+{{ form_start(form) }}
+{{ form_errors(form) }}
+{{ form_row(form.recipient_email, {
+    'label': false,
+    'attr': {
+        'placeholder': 'synolia.stockalert.recipient_email.label'|trans
+    }
+}) }}
+{{ form_row(form.send, {
+    'attr': {
+        'class': 'submit btn btn-submit'
+    }
+}) }}
+{{ form_end(form) }}

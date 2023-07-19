@@ -15,6 +15,7 @@ services:
             - '@Synolia\Bundle\StockAlertBundle\Entity\Repository\StockAlertRepository'
             - '@Synolia\Bundle\StockAlertBundle\Handler\StockAlertHandler'
             - '@oro_message_queue.client.message_producer'
+            - '@translator'
         tags:
             - { name: doctrine.orm.entity_listener, entity: 'Oro\Bundle\InventoryBundle\Entity\InventoryLevel', event: preUpdate  }
             - { name: doctrine.orm.entity_listener, entity: 'Oro\Bundle\InventoryBundle\Entity\InventoryLevel', event: postUpdate }

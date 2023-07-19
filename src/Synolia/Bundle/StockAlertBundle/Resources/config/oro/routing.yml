@@ -4,3 +4,8 @@ synolia_stock_alert:
     prefix: /stock-alert
     options:
         frontend: true
+
+synolia_admin_stock_alert:
+    resource: "@SynoliaStockAlertBundle/Controller/StockAlertController.php"
+    type: annotation
+    prefix: /stock-alert
