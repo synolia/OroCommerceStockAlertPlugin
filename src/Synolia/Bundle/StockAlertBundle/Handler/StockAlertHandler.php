@@ -31,7 +31,7 @@ class StockAlertHandler
      * @throws NotSupported
      * @throws ORMException
      */
-    public function create($product, ?string $recipientEmail = null): StockAlert|bool
+    public function create(Product $product, ?string $recipientEmail = null): StockAlert|bool
     {
         $user = $this->tokenAccessor->getUser();
         $organization = $this->tokenAccessor->getOrganization();
