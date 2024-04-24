@@ -11,10 +11,8 @@ use Synolia\Bundle\StockAlertBundle\Entity\StockAlert;
 
 class StockAlertController extends AbstractController
 {
-    /**
-     * @Route("/", name="synolia_stock_alert_index")
-     * @Template
-     */
+    #[Route(path: '/', name: 'synolia_stock_alert_index')]
+    #[Template('@SynoliaStockAlert/StockAlert/index.html.twig')]
     public function indexAction(): array
     {
         return [

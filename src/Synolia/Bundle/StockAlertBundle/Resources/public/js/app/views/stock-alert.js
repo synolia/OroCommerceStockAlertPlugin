@@ -16,6 +16,9 @@ const StockAlert = BaseView.extend({
         this.options = {...this.options, ...options};
 
         this.productId = this.options.productId;
+        if(this.productId === undefined){
+            this.productId = this.options.product.id;
+        }
         this.hasStock = this.options.hasStock;
         if (this.hasStock) {
             $('.delete-stock-alert', this.options.el).show();

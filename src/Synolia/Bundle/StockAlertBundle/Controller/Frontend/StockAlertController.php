@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Synolia\Bundle\StockAlertBundle\Controller\Frontend;
 
 use Doctrine\Persistence\ObjectManager;
-use Oro\Bundle\LayoutBundle\Annotation\Layout;
+use Oro\Bundle\LayoutBundle\Attribute\Layout;
 use Oro\Bundle\ProductBundle\Entity\Product;
-use Oro\Bundle\SecurityBundle\Annotation\CsrfProtection;
+use Oro\Bundle\SecurityBundle\Attribute\CsrfProtection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -40,9 +40,7 @@ class StockAlertController extends AbstractController
         $this->handler = $handler;
     }
 
-    /**
-     * @Route(path="/form/{productId}", name="synolia_frontend_stock_alert_form", methods={"POST"})
-     */
+    #[Route(path: '/form/{productId}', name: 'synolia_frontend_stock_alert_form', methods: ['POST']) ]
     public function form(Request $request, int $productId): Response
     {
         $product = $this->manager->getRepository(Product::class)->find($productId);
@@ -81,10 +79,8 @@ class StockAlertController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/", name="synolia_stock_alert_frontend_index")
-     * @Layout(vars={"entity_class", "organization_id", "customer_user_id"})
-     */
+    #[Route(path: '/', name: 'synolia_stock_alert_frontend_index')]
+    #[Layout(vars: ['entity_class','organization_id','customer_user_id'])]
     public function indexAction(): array
     {
         $entityClass = StockAlert::class;
@@ -98,10 +94,8 @@ class StockAlertController extends AbstractController
         ];
     }
 
-    /**
-     * @Route("/create/{id}", name="synolia_stock_alert_create", requirements={"id"="\d+"})
-     * @ParamConverter("product", class="OroProductBundle:Product", options={"id" = "id"})
-     */
+    #[Route(path: '/create/{id}', name: 'synolia_stock_alert_create', requirements: ['id' => '\d+']) ]
+    #[ParamConverter('product', class: Product::class, options: ['id' => 'id'])]
     public function createAction(Product $product): JsonResponse
     {
         try {
@@ -122,16 +116,9 @@ class StockAlertController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route(
-     *     "/delete/{id}",
-     *     name="synolia_stock_alert_delete",
-     *     methods={"DELETE"},
-     *     requirements={"id"="\d+"}
-     * )
-     * @CsrfProtection()
-     * @ParamConverter("product", class="OroProductBundle:Product", options={"id" = "id"})
-     */
+    #[Route(path: '/delete/{id}', name: 'synolia_stock_alert_delete', requirements: ['id' => '\d+'], methods: ['DELETE']) ]
+    #[CsrfProtection()]
+    #[ParamConverter('product', class: Product::class, options: ['id' => 'id'])]
     public function deleteAction(Product $product): JsonResponse
     {
         try {
