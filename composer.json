@@ -20,8 +20,8 @@
         "exclude-from-classmap": ["/Tests/"]
     },
     "require": {
-        "php": "~8.2.0",
-        "oro/commerce": "5.1.*"
+        "php": "~8.3.0",
+        "oro/commerce": "6.0.*"
     },
     "repositories": {
         "oro": {
