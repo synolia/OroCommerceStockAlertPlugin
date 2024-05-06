@@ -6,7 +6,7 @@ namespace Synolia\Bundle\StockAlertBundle\Migrations\Data\ORM\Email;
 
 use Doctrine\Persistence\ObjectManager;
 use Oro\Bundle\EmailBundle\Migrations\Data\ORM\AbstractEmailFixture;
-use Oro\Bundle\EmailBundle\Model\EmailTemplate;
+use Oro\Bundle\EmailBundle\Entity\EmailTemplate;
 use Oro\Bundle\MigrationBundle\Fixture\VersionedFixtureInterface;
 
 class LoadEmailTemplates extends AbstractEmailFixture implements VersionedFixtureInterface
@@ -16,7 +16,7 @@ class LoadEmailTemplates extends AbstractEmailFixture implements VersionedFixtur
         return $this->container
             ->get('kernel')
             ->locateResource('@SynoliaStockAlertBundle/Migrations/Data/ORM/data/emails')
-        ;
+            ;
     }
 
     public function getVersion(): string
@@ -30,7 +30,7 @@ class LoadEmailTemplates extends AbstractEmailFixture implements VersionedFixtur
             return null;
         }
 
-        return $manager->getRepository('OroEmailBundle:EmailTemplate')->findOneBy([
+        return $manager->getRepository(EmailTemplate::class)->findOneBy([
             'name' => $template['params']['name'],
         ]);
     }
