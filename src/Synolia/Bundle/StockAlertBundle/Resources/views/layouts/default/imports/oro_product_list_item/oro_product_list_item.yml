@@ -6,6 +6,3 @@ layout:
             id: __stock_alert
             blockType: block
             parentId: __product_secondary_content_first_container
-    conditions: 'context["is_logged_in"] == true'
-
-
