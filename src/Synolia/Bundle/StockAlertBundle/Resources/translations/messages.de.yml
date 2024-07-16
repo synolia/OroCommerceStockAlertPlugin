@@ -12,3 +12,10 @@ synolia:
                 confirmation_message: Die Warnung für den Lagerbestand dieses Produkts wurde erfolgreich gelöscht
         recipient_email.label: E-Mail
         customer.fullname: Kunde
+        email:
+            subject: "Produkt wieder auf Lager"
+            greeting: "Sehr geehrte(r)"
+            body:
+                the_product: "Das Produkt"
+                with_sku: "mit der SKU"
+                is_back: "ist jetzt wieder auf Lager."

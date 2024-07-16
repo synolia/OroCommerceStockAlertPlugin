@@ -12,3 +12,10 @@ synolia:
                 confirmation_message: La alerta sobre el nivel de stock de ese producto ha sido eliminada con éxito
         recipient_email.label: Correo electrónico
         customer.fullname: cliente
+        email:
+            subject: "producto de nuevo en stock"
+            greeting: "Estimado(a)"
+            body:
+                the_product: "El producto"
+                with_sku: "con SKU"
+                is_back: "está ahora de nuevo en stock."
