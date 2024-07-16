@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Synolia\Bundle\StockAlertBundle\Async\Topic;
 
+use Oro\Bundle\CustomerBundle\Entity\CustomerUser;
 use Oro\Component\MessageQueue\Topic\AbstractTopic;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -23,19 +24,16 @@ class StockAlertNotificationTopic extends AbstractTopic
     {
         $resolver
             ->setDefined([
-                'customerEmail',
-                'customerFullName',
+                'customerUserId',
                 'productName',
                 'productSKU',
             ])
             ->setRequired([
-                'customerEmail',
-                'customerFullName',
+                'customerUserId',
                 'productName',
                 'productSKU',
             ])
-            ->addAllowedTypes('customerEmail', 'string')
-            ->addAllowedTypes('customerFullName', 'string')
+            ->addAllowedTypes('customerUserId', 'int')
             ->addAllowedTypes('productName', 'string')
             ->addAllowedTypes('productSKU', 'string')
         ;

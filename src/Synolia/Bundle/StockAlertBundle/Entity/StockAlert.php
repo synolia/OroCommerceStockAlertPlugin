@@ -18,7 +18,6 @@ use Oro\Bundle\OrganizationBundle\Entity\OrganizationAwareInterface;
 use Oro\Bundle\ProductBundle\Entity\Product;
 use Oro\Bundle\UserBundle\Entity\Ownership\UserAwareTrait;
 use Synolia\Bundle\StockAlertBundle\Entity\Repository\StockAlertRepository;
-use Synolia\Bundle\StockAlertBundle\Model\ExtendStockAlert;
 
 #[ORM\Entity(repositoryClass: StockAlertRepository::class)]
 #[ORM\Table(name: 'synolia_stock_alert')]
@@ -40,7 +39,7 @@ use Synolia\Bundle\StockAlertBundle\Model\ExtendStockAlert;
         ],
     ]
 )]
-class StockAlert extends ExtendStockAlert implements
+class StockAlert implements
     ExtendEntityInterface,
     OrganizationAwareInterface,
     CustomerOwnerAwareInterface,

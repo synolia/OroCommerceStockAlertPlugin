@@ -20,6 +20,8 @@ class SynoliaStockAlertBundleInstaller implements Installation
 
     /**
      * @throws SchemaException
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function up(Schema $schema, QueryBag $queries): void
     {

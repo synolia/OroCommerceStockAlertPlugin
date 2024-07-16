@@ -24,7 +24,5 @@
                 {{ 'synolia.stockalert.alert.unregister.title'|trans }}
             </a>
         </div>
-    {% else %}
-        {{ render(controller('App\\Controller\\Frontend\\StockAlertController::form', {'productId': product.id})) }}
     {% endif %}
 {% endblock %}

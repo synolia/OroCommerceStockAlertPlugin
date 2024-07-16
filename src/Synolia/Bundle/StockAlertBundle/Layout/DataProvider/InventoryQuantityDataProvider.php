@@ -10,15 +10,10 @@ use Oro\Bundle\ProductBundle\Entity\ProductUnit;
 
 class InventoryQuantityDataProvider
 {
-    /**
-     * @var InventoryQuantityProviderInterface
-     */
-    protected $inventoryQuantityProvider;
 
     public function __construct(
-        InventoryQuantityProviderInterface $inventoryQuantityProvider
+        protected InventoryQuantityProviderInterface $inventoryQuantityProvider
     ) {
-        $this->inventoryQuantityProvider = $inventoryQuantityProvider;
     }
 
     public function getAvailableQuantity(Product $product): int
@@ -29,6 +24,6 @@ class InventoryQuantityDataProvider
             return 0;
         }
 
-        return (int)$this->inventoryQuantityProvider->getAvailableQuantity($product, $unit);
+        return $this->inventoryQuantityProvider->getAvailableQuantity($product, $unit);
     }
 }

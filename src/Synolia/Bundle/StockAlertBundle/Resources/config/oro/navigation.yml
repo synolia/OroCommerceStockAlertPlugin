@@ -18,6 +18,12 @@ navigation:
                 scope_type: menu_frontend_visibility
                 children:
                     synolia_stock_alert_list: ~
+            oro_customer_menu_refreshing_teal:
+                scope_type: menu_fronend_visibility
+                children:
+                    oro_customer_frontend_customer_user_profiles_and_addresses:
+                        children:
+                            synolia_stock_alert_list: ~
             # BO
             application_menu:
                 children:

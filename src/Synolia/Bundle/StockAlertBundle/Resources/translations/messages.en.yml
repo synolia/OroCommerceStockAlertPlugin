@@ -12,3 +12,10 @@ synolia:
                 confirmation_message: The alert on that product stock level has been successfully deleted
         recipient_email.label: Email
         customer.fullname: customer
+        email:
+            subject: "product back in stock"
+            greeting: "Dear"
+            body:
+                the_product: "The product"
+                with_sku: "with SKU"
+                is_back: "is now back in stock."

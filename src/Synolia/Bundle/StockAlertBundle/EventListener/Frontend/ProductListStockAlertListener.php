@@ -14,16 +14,10 @@ use Synolia\Bundle\StockAlertBundle\Entity\StockAlert;
 
 class ProductListStockAlertListener
 {
-    private EntityManagerInterface $entityManager;
-
-    private TokenAccessorInterface $tokenAccessor;
-
     public function __construct(
-        EntityManagerInterface $entityManager,
-        TokenAccessorInterface $tokenAccessor
+        private EntityManagerInterface $entityManager,
+        private TokenAccessorInterface $tokenAccessor
     ) {
-        $this->entityManager = $entityManager;
-        $this->tokenAccessor = $tokenAccessor;
     }
 
     public function onBuildResult(BuildResultProductListEvent $event): void

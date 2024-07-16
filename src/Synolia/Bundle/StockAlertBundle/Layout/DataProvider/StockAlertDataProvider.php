@@ -12,16 +12,11 @@ use Synolia\Bundle\StockAlertBundle\Entity\StockAlert;
 
 class StockAlertDataProvider
 {
-    protected EntityManager $entityManager;
-
-    protected TokenAccessor $tokenAccessor;
 
     public function __construct(
-        EntityManager $entityManager,
-        TokenAccessor $tokenAccessor
+        protected EntityManager $entityManager,
+        protected TokenAccessor $tokenAccessor
     ) {
-        $this->entityManager = $entityManager;
-        $this->tokenAccessor = $tokenAccessor;
     }
 
     /**

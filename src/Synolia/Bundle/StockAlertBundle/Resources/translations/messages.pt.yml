@@ -1,0 +1,14 @@
+synolia:
+    stockalert:
+        entity_label: Alerta de estoque
+        entity_plural_label: Alertas de estoque
+        alert:
+            register:
+                title: Notifique-me quando este produto estiver em estoque
+                confirmation_message: Iremos informá-lo assim que este produto estiver em estoque
+                error_message: Não foi possível salvar a solicitação de notificação de alerta de estoque
+            unregister:
+                title: Não desejo mais ser notificado quando este produto estiver em estoque
+                confirmation_message: O alerta sobre o nível de estoque desse produto foi excluído com sucesso
+        recipient_email.label: Email
+        customer.fullname: cliente

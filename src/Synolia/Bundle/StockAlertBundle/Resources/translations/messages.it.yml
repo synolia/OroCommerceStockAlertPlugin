@@ -1,0 +1,14 @@
+synolia:
+    stockalert:
+        entity_label: Allerta di stock
+        entity_plural_label: Allerte di stock
+        alert:
+            register:
+                title: Avvisami quando questo prodotto è disponibile
+                confirmation_message: Ti informeremo non appena questo prodotto sarà disponibile
+                error_message: Impossibile salvare la richiesta di notifica dell'allerta di stock
+            unregister:
+                title: Non desidero più essere avvisato quando questo prodotto è disponibile
+                confirmation_message: L'allerta sul livello di stock di quel prodotto è stata eliminata con successo
+        recipient_email.label: Email
+        customer.fullname: cliente

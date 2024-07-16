@@ -31,12 +31,12 @@ class StockAlertHandler
      * @throws NotSupported
      * @throws ORMException
      */
-    public function create(Product $product, ?string $recipientEmail = null): StockAlert|bool
+    public function create(Product $product): StockAlert|bool
     {
         $user = $this->tokenAccessor->getUser();
         $organization = $this->tokenAccessor->getOrganization();
 
-        $stockAlert = $this->getStockAlert($product, $user, $organization, $recipientEmail);
+        $stockAlert = $this->getStockAlert($product, $user, $organization);
         if ($stockAlert instanceof StockAlert) {
             return $stockAlert;
         }
@@ -50,10 +50,6 @@ class StockAlertHandler
         }
         if ($organization instanceof Organization) {
             $stockAlert->setOrganization($organization);
-        }
-        if (!empty($recipientEmail)) {
-            $accessor = PropertyAccess::createPropertyAccessor();
-            $accessor->setValue($stockAlert, 'recipient_email', $recipientEmail);
         }
         $stockAlert->setExpirationDate($this->getExpirationDate());
         $this->entityManager->persist($stockAlert);
@@ -116,8 +112,7 @@ class StockAlertHandler
     protected function getStockAlert(
         Product $product,
         ?CustomerUser $user,
-        ?Organization $organization,
-        ?string $recipientEmail = null
+        ?Organization $organization
     ): ?StockAlert {
         $stockAlertRepository = $this->entityManager->getRepository(StockAlert::class);
 
@@ -127,9 +122,6 @@ class StockAlertHandler
         }
         if ($organization instanceof Organization) {
             $params['organization'] = $organization;
-        }
-        if (!empty($recipientEmail)) {
-            $params['recipient_email'] = $recipientEmail;
         }
 
         return $stockAlertRepository->findOneBy($params);
