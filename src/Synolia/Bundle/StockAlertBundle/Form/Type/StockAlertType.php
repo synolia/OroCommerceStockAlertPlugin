@@ -12,8 +12,11 @@ use Synolia\Bundle\StockAlertBundle\Entity\StockAlert;
 
 class StockAlertType extends AbstractType
 {
-    public const NAME = 'synolia_stock_alert_type';
+    public const string NAME = 'synolia_stock_alert_type';
 
+    /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder

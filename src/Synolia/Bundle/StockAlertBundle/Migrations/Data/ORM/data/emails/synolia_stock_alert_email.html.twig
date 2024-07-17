@@ -1,9 +1,9 @@
 @name = synolia_stock_alert_email
 @entityName = Synolia\Bundle\StockAlertBundle\Entity\StockAlert
-@subject = {{ websiteName }}: product back in stock
+@subject = {{ websiteName }}: {{ 'synolia.stockalert.email.subject'|trans }}
 @isSystem = 0
 @isEditable = 1
 
-Dear {{ customerFullName }},<br/>
+{{ 'synolia.stockalert.email.greeting'|trans }} {{ customerFullName }},<br/>
 <br/>
-The product <strong>{{ productName }}</strong> with SKU <strong>{{ productSKU }}</strong> is now back in stock.
+{{ 'synolia.stockalert.email.body.the_product'|trans }} <strong>{{ productName }}</strong> {{ 'synolia.stockalert.email.body.with_sku'|trans }} <strong>{{ productSKU }}</strong> {{ 'synolia.stockalert.email.body.is_back'|trans }}

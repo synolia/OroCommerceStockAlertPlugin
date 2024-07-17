@@ -1,0 +1,21 @@
+synolia:
+    stockalert:
+        entity_label: Lagerbestand Warnung
+        entity_plural_label: Lagerbestand Warnungen
+        alert:
+            register:
+                title: Benachrichtigen Sie mich, wenn dieses Produkt auf Lager ist
+                confirmation_message: Wir werden Sie informieren, sobald dieses Produkt auf Lager ist
+                error_message: Benachrichtigungsanfrage für Lagerbestand-Warnung konnte nicht gespeichert werden
+            unregister:
+                title: Ich möchte nicht mehr benachrichtigt werden, wenn dieses Produkt auf Lager ist
+                confirmation_message: Die Warnung für den Lagerbestand dieses Produkts wurde erfolgreich gelöscht
+        recipient_email.label: E-Mail
+        customer.fullname: Kunde
+        email:
+            subject: "Produkt wieder auf Lager"
+            greeting: "Sehr geehrte(r)"
+            body:
+                the_product: "Das Produkt"
+                with_sku: "mit der SKU"
+                is_back: "ist jetzt wieder auf Lager."

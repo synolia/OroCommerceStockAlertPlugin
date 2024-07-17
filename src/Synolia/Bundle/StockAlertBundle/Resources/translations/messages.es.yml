@@ -1,0 +1,21 @@
+synolia:
+    stockalert:
+        entity_label: Alerta de stock
+        entity_plural_label: Alertas de stock
+        alert:
+            register:
+                title: Notifíqueme cuando este producto esté en stock
+                confirmation_message: Le informaremos tan pronto como este producto esté en stock
+                error_message: No se pudo guardar la solicitud de notificación de alerta de stock
+            unregister:
+                title: Ya no deseo ser notificado cuando este producto esté en stock
+                confirmation_message: La alerta sobre el nivel de stock de ese producto ha sido eliminada con éxito
+        recipient_email.label: Correo electrónico
+        customer.fullname: cliente
+        email:
+            subject: "producto de nuevo en stock"
+            greeting: "Estimado(a)"
+            body:
+                the_product: "El producto"
+                with_sku: "con SKU"
+                is_back: "está ahora de nuevo en stock."

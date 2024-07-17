@@ -37,8 +37,10 @@ services:
 
     Synolia\Bundle\StockAlertBundle\Async\StockAlertNotificationProcessor:
         arguments:
-            - '@oro_website.manager'
-            - '@Synolia\Bundle\StockAlertBundle\Mailer\SimpleEmailMailer'
+#            - '@oro_website.manager'
+            - '@oro_user.mailer.user_template_email_sender'
+            - '@doctrine.orm.entity_manager'
+#            - '@oro_security.token_accessor'
         tags:
             - { name: 'oro_message_queue.client.message_processor', topicName: 'synolia.stock_alert.notification' }
 
@@ -52,13 +54,6 @@ services:
         tags:
             - { name: container.service_subscriber }
             - { name: controller.service_arguments }
-
-    Synolia\Bundle\StockAlertBundle\Mailer\SimpleEmailMailer:
-        arguments:
-            - '@doctrine.orm.entity_manager'
-            - '@oro_config.manager'
-            - '@oro_email.email_renderer'
-            - '@oro_email.sender.email_model_sender'
 
     Synolia\Bundle\StockAlertBundle\Controller\StockAlertController:
         public: true

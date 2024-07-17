@@ -58,7 +58,7 @@ class StockAlertController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             try {
-                $this->handler->create($product, $form->getData()->get('recipient_email'));
+                $this->handler->create($product);
 
                 $this->addFlash(
                     'success',
@@ -128,7 +128,7 @@ class StockAlertController extends AbstractController
                 'status' => 'success',
                 'message' => $this->translator->trans('synolia.stockalert.alert.unregister.confirmation_message'),
             ]);
-        } catch (\Exception $exception) {
+        } catch (\Exception $e) {
         }
 
         return new JsonResponse([

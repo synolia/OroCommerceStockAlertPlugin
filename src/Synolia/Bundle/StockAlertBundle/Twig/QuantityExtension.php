@@ -16,18 +16,11 @@ use Twig\TwigFunction;
 
 class QuantityExtension extends AbstractExtension
 {
-    protected InventoryQuantityDataProvider $inventoryQuantityDataProvider;
-    protected EntityManager $entityManager;
-    protected StockAlertDataProvider $stockAlertDataProvider;
-
     public function __construct(
-        InventoryQuantityDataProvider $inventoryQuantityDataProvider,
-        EntityManager $entityManager,
-        StockAlertDataProvider $stockAlertDataProvider
+        protected InventoryQuantityDataProvider $inventoryQuantityDataProvider,
+        protected EntityManager $entityManager,
+        protected StockAlertDataProvider $stockAlertDataProvider
     ) {
-        $this->inventoryQuantityDataProvider = $inventoryQuantityDataProvider;
-        $this->entityManager = $entityManager;
-        $this->stockAlertDataProvider = $stockAlertDataProvider;
     }
 
     public function getFunctions(): array

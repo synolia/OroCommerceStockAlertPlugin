@@ -17,19 +17,13 @@ use Synolia\Bundle\StockAlertBundle\Entity\StockAlert;
 
 class StockAlertFrontendDatagridListener
 {
-    private EntityManagerInterface $entityManager;
-
-    private TokenAccessorInterface $tokenAccessor;
-
     public function __construct(
-        EntityManagerInterface $entityManager,
-        TokenAccessorInterface $tokenAccessor
+        private EntityManagerInterface $entityManager,
+        private TokenAccessorInterface $tokenAccessor
     ) {
-        $this->entityManager = $entityManager;
-        $this->tokenAccessor = $tokenAccessor;
     }
 
-    public function onResultAfter(SearchResultAfter $event)
+    public function onResultAfter(SearchResultAfter $event): void
     {
         /** @var ResultRecord[] $records */
         $records = $event->getRecords();
@@ -61,7 +55,7 @@ class StockAlertFrontendDatagridListener
         }
     }
 
-    public function onBuildBefore(BuildBefore $event)
+    public function onBuildBefore(BuildBefore $event): void
     {
         $config = $event->getConfig();
         $config->offsetAddToArrayByPath(
