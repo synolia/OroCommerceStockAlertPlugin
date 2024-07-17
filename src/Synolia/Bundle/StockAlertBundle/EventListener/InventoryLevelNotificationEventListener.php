@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace Synolia\Bundle\StockAlertBundle\EventListener;
 
-use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\OptimisticLockException;
 use Oro\Bundle\CustomerBundle\Entity\CustomerUser;
-use Oro\Bundle\EntityExtendBundle\PropertyAccess;
 use Oro\Bundle\InventoryBundle\Entity\InventoryLevel;
 use Oro\Bundle\ProductBundle\Entity\Product;
 use Oro\Component\MessageQueue\Client\MessageProducerInterface;
@@ -35,9 +33,9 @@ class InventoryLevelNotificationEventListener
     /**
      * @throws Exception
      */
-    public function preUpdate(InventoryLevel $inventoryLevel, LifecycleEventArgs $args): void
+    public function preUpdate(InventoryLevel $inventoryLevel, PreUpdateEventArgs $args): void
     {
-        if (!$args->getEntity() instanceof InventoryLevel) {
+        if (!$args->getObject() instanceof InventoryLevel) {
             return;
         }
         if (!$this->inventoryHasNewStock($args)) {
@@ -63,11 +61,9 @@ class InventoryLevelNotificationEventListener
         $this->stockAlertHandler->deleteStockAlerts($this->stockAlerts);
     }
 
-    protected function inventoryHasNewStock(LifecycleEventArgs $args): bool
+    protected function inventoryHasNewStock(PreUpdateEventArgs $args): bool
     {
-        /** @var PreUpdateEventArgs $args */
         $oldQuantity = floatval($args->getOldValue('quantity'));
-        /** @var PreUpdateEventArgs $args */
         $newQuantity = floatval($args->getNewValue('quantity'));
 
         return $oldQuantity <= 0 && $newQuantity > 0;
