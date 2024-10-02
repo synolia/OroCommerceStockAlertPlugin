@@ -63,8 +63,12 @@ class InventoryLevelNotificationEventListener
 
     protected function inventoryHasNewStock(PreUpdateEventArgs $args): bool
     {
-        $oldQuantity = floatval($args->getOldValue('quantity'));
-        $newQuantity = floatval($args->getNewValue('quantity'));
+        if (!$args->hasChangedField('quantity')) {
+            return false;
+        }
+
+        $oldQuantity = (float) $args->getOldValue('quantity');
+        $newQuantity = (float) $args->getNewValue('quantity');
 
         return $oldQuantity <= 0 && $newQuantity > 0;
     }
