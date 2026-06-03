@@ -8,12 +8,12 @@ use Doctrine\Persistence\ObjectManager;
 use Oro\Bundle\LayoutBundle\Attribute\Layout;
 use Oro\Bundle\ProductBundle\Entity\Product;
 use Oro\Bundle\SecurityBundle\Attribute\CsrfProtection;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Synolia\Bundle\StockAlertBundle\Entity\StockAlert;
 use Synolia\Bundle\StockAlertBundle\Form\Type\StockAlertType;
@@ -95,8 +95,7 @@ class StockAlertController extends AbstractController
     }
 
     #[Route(path: '/create/{id}', name: 'synolia_stock_alert_create', requirements: ['id' => '\d+']) ]
-    #[ParamConverter('product', class: Product::class, options: ['id' => 'id'])]
-    public function createAction(Product $product): JsonResponse
+    public function createAction(#[MapEntity(id: 'id')] Product $product): JsonResponse
     {
         try {
             $stockAlert = $this->handler->create($product);
@@ -118,8 +117,7 @@ class StockAlertController extends AbstractController
 
     #[Route(path: '/delete/{id}', name: 'synolia_stock_alert_delete', requirements: ['id' => '\d+'], methods: ['DELETE']) ]
     #[CsrfProtection()]
-    #[ParamConverter('product', class: Product::class, options: ['id' => 'id'])]
-    public function deleteAction(Product $product): JsonResponse
+    public function deleteAction(#[MapEntity(id: 'id')] Product $product): JsonResponse
     {
         try {
             $this->handler->deleteByProduct($product);
