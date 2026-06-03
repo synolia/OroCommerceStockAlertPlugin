@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Synolia\Bundle\StockAlertBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bridge\Twig\Attribute\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Synolia\Bundle\StockAlertBundle\Entity\StockAlert;
 
 class StockAlertController extends AbstractController
