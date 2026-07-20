@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Synolia\Bundle\StockAlertBundle\Controller\Frontend;
 
 use Doctrine\Persistence\ObjectManager;
+use Oro\Bundle\CustomerBundle\Entity\CustomerUser;
 use Oro\Bundle\LayoutBundle\Attribute\Layout;
 use Oro\Bundle\ProductBundle\Entity\Product;
 use Oro\Bundle\SecurityBundle\Attribute\CsrfProtection;
@@ -43,6 +44,8 @@ class StockAlertController extends AbstractController
     #[Route(path: '/form/{productId}', name: 'synolia_frontend_stock_alert_form', methods: ['POST']) ]
     public function form(Request $request, int $productId): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
+
         $product = $this->manager->getRepository(Product::class)->find($productId);
 
         $formEntity = new StockAlert();
@@ -83,14 +86,15 @@ class StockAlertController extends AbstractController
     #[Layout(vars: ['entity_class','organization_id','customer_user_id'])]
     public function indexAction(): array
     {
-        $entityClass = StockAlert::class;
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
+
+        /** @var CustomerUser $user */
+        $user = $this->getUser();
 
         return [
-            'entity_class' => $entityClass,
-            /* @phpstan-ignore-next-line */
-            'organization_id' => $this->getUser()->getOrganization()->getId(),
-            /* @phpstan-ignore-next-line */
-            'customer_user_id' => $this->getUser()->getId(),
+            'entity_class' => StockAlert::class,
+            'organization_id' => $user->getOrganization()->getId(),
+            'customer_user_id' => $user->getId(),
         ];
     }
 
@@ -98,6 +102,8 @@ class StockAlertController extends AbstractController
     #[ParamConverter('product', class: Product::class, options: ['id' => 'id'])]
     public function createAction(Product $product): JsonResponse
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
+
         try {
             $stockAlert = $this->handler->create($product);
 
@@ -121,6 +127,8 @@ class StockAlertController extends AbstractController
     #[ParamConverter('product', class: Product::class, options: ['id' => 'id'])]
     public function deleteAction(Product $product): JsonResponse
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
+
         try {
             $this->handler->deleteByProduct($product);
 
